@@ -1,0 +1,29 @@
+# Backups and old versions
+backups/
+*_backup.py
+*_v[0-9].py
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Secrets / credentials
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.yaml
+secrets.yml
+
+# Kubernetes access files
+kubeconfig
+kubeconfig.yaml
+*.kubeconfig
