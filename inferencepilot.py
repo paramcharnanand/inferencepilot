@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """InferencePilot: an agent that watches its own inference server and adapts.
 
-Run:  python inferencepilot_app.py            (needs: pip install openai requests)
+Run:  python3 inferencepilot.py                 (needs: pip install openai requests)
 Open: http://localhost:8080
 Needs the port-forward running:  kubectl port-forward svc/vllm 8000:8000
 """

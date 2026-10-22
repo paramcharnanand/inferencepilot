@@ -1,8 +1,28 @@
 # InferencePilot
 
+> Built by **Param Charnanand** at the **Akamai Hackathon** (October 2026), against a
+> vLLM server on an Akamai GPU.
+
 An agent that drives traffic at your own inference server, routes each task to a cheap or
 expensive model path, and adapts concurrency and output length when latency or errors creep up.
 A live dashboard shows what it's doing and why.
+
+**Tech:** Python · vLLM (OpenAI-compatible API) · OpenAI Python SDK with forced tool calls ·
+Prometheus `/metrics` scraping · Kubernetes (`kubectl port-forward`) · standard-library
+HTTP server · vanilla JS + canvas dashboard.
+
+**Highlights**
+
+- **LLM-based routing with a safe fallback:** a forced `route_task` tool call labels each
+  task `simple` or `complex`. A bad or failed reply falls back to a rule-based heuristic, so
+  routing never blocks a task.
+- **Closed-loop control:** after every wave it reads p95 latency plus vLLM's running and
+  waiting queue depth, then backs off, recovers or holds concurrency and the output-token
+  budget.
+- **Honest latency numbers:** time spent waiting on reconnects to a flaky tunnel is
+  subtracted, so the reported latency reflects the model itself.
+- **Built-in A/B comparison:** run the same batch once in fixed mode and once in adaptive
+  mode, and the dashboard compares throughput, p50/p95 and % over target side by side.
 
 ## Setup
 
@@ -65,7 +85,6 @@ static/
 requirements.txt     # Python dependencies
 ```
 
-Earlier iterations of `inferencepilot.py` are kept in `backups/`
-(`inferencepilot_v2*.py`, `inferencepilot_v4*.py`, `inferencepilot_v5_backup.py`,
-`inferencepilot_pre_static_refactor_backup.py`) as backups of prior working versions;
-`inferencepilot.py` is the current one.
+## License
+
+[MIT](LICENSE)
